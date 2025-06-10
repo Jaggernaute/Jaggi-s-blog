@@ -26,6 +26,7 @@ def compile_tex_files():
             [
                 "make4ht",
                 "-u",
+                "-c", "config.cfg",
                 "-d", str(output_subdir),
                 str(tex_path)
             ],
