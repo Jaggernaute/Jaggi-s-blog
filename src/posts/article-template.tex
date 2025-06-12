@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{array}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -7,7 +8,7 @@
 \usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{lmodern} % Web-safe font
+\usepackage{lmodern}
 
 % Page margins
 \geometry{margin=2.5cm}
@@ -37,6 +38,14 @@
     urlcolor=linkcolor
 }
 
+% Define a flag depending on compiler
+\newif\ifhtml
+\ifdefined\HCode
+\htmltrue  % We're using make4ht/tex4ht
+\else
+\htmlfalse % We're using pdflatex or other
+\fi
+
 \title{Diary of a Jaggi}
 \author{Jaggi the nerdy fuzzball}
 \date{2025-06-10}
@@ -44,6 +53,19 @@
 \begin{document}
 
 \maketitle
+
+\ifhtml
+\begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth}}
+
+        \href{../index.html}{Blog Index} &
+        \href{pdf/article-template.pdf}{PDF Version} &
+        \href{../about.html}{About} \\
+
+    \end{tabular}
+\end{center}
+\fi
 
 \section*{Intro Snuggles}
 
@@ -54,7 +76,7 @@ Hi there! I’m Jaggi, this is a test blog article, really simple in pure \LaTeX
 Here’s a quick peek at how I’m feeling today:
 
 \begin{center}
-  \includegraphics[width=0.5\linewidth]{src/assets/happy_jaggi.png}
+    \includegraphics[width=0.5\linewidth]{src/assets/happy_jaggi}
 \end{center}
 
 Feeling cozy, coding with coffee, and maybe a little too obsessed with the LaTeX typesetting.
@@ -62,7 +84,7 @@ Feeling cozy, coding with coffee, and maybe a little too obsessed with the LaTeX
 \section*{Thought Nuggets}
 
 \begin{itemize}
-  \item It's way to hot today ...
+  \item It's way too hot today ...
   \item I'm in love with \href{https://github.com/Sigmanificient}{this cutie}
   \item I want to do more math.
 \end{itemize}
