@@ -26,6 +26,14 @@ def compile_with_make4ht():
         # Output directory for HTML
         output_subdir = OUT_DIR / rel_path.parent
         ensure_dir(output_subdir)
+        print(f"[tex-fmt] Formating {tex_path}")
+        subprocess.run(
+            [
+                "tex-fmt",
+                str(tex_path)
+            ],
+            check=True
+        )
 
         print(f"[make4ht] Compiling {tex_path} → {output_subdir}")
         subprocess.run(

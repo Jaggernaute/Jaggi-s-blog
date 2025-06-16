@@ -10,6 +10,7 @@
 
       dev-packages = with pkgs; [
         latex-packages
+        tex-fmt
         gnumake
         sioyek
       ];

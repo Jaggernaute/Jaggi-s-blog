@@ -20,22 +20,22 @@
 
 % Title formatting
 \titleformat{\title}
-  {\normalfont\LARGE\bfseries\color{titlecolor}\centering}
-  {}{0pt}{}
+{\normalfont\LARGE\bfseries\color{titlecolor}\centering}
+{}{0pt}{}
 
 % Section formatting
 \titleformat{\section}
-  {\normalfont\Large\bfseries\color{sectioncolor}}
-  {\thesection}{1em}{}
+{\normalfont\Large\bfseries\color{sectioncolor}}
+{\thesection}{1em}{}
 
 % List style
 \setlist[itemize]{left=1.5em}
 
 % Clickable links
 \hypersetup{
-    colorlinks=true,
-    linkcolor=linkcolor,
-    urlcolor=linkcolor
+  colorlinks=true,
+  linkcolor=linkcolor,
+  urlcolor=linkcolor
 }
 
 % Define a flag depending on compiler
@@ -56,12 +56,16 @@
 
 \ifhtml
 \begin{center}
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{>{\raggedright\arraybackslash}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.3\linewidth}}
-        \href{../index.html}{Blog Index} &
-        \href{pdf/article-template.pdf}{PDF Version} &
-        \href{../about.html}{About} \\
-    \end{tabular}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+    }
+    \href{../index.html}{Blog Index} &
+    \href{pdf/article-template.pdf}{PDF Version} &
+    \href{../about.html}{About} \\
+  \end{tabular}
 \end{center}
 \fi
 
@@ -75,10 +79,11 @@ I’m Jaggi, this is a test blog article, really simple in pure \LaTeX.
 Here’s a quick peek at how I’m feeling today:
 
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{src/assets/happy_jaggi}
+  \includegraphics[width=0.5\linewidth]{src/assets/happy_jaggi}
 \end{center}
 
-Feeling cozy, coding with coffee, and maybe a little too obsessed with the LaTeX typesetting.
+Feeling cozy, coding with coffee, and maybe a little too obsessed
+with the LaTeX typesetting.
 
 \section*{Thought Nuggets}
 
@@ -93,18 +98,21 @@ Feeling cozy, coding with coffee, and maybe a little too obsessed with the LaTeX
 Some links I keep pined in my browser :
 
 \begin{itemize}
-  \item \href{https://github.com/Jaggernaute}{GitHub — Home of my fluffiest code}
-  \item \href{https://transfem.social/@jaggi}{transfem.social — my fediverse hangout}
+  \item \href{https://github.com/Jaggernaute}{GitHub — Home of my
+    fluffiest code}
+  \item \href{https://transfem.social/@jaggi}{transfem.social — my
+    fediverse hangout}
 \end{itemize}
 
 \section*{Final Tail Wiggle}
 
-This blog post was written in pure LaTeX, with love and no config files. You can turn it into HTML with:
+This blog post was written in pure LaTeX, with love and almost no config files.
+You can turn it into HTML with:
 
 \begin{verbatim}
-make4ht -u -d output src/index.tex
+python build.py
 \end{verbatim}
 
-That’s all for now! Snugs and scripts
+That’s all for now!
 
 \end{document}
