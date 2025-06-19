@@ -1,0 +1,88 @@
+%! Author = jaggi
+%! Date = 6/16/25
+
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{array}
+
+\usepackage[
+  backend=biber,
+  style=apa
+]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{wasysym}
+
+% Define a flag depending on compiler
+\newif\ifhtml
+\ifdefined\HCode
+\htmltrue  % We're using make4ht/tex4ht
+\else
+\htmlfalse % We're using pdflatex or other
+\fi
+
+\addbibresource{artificial-non-intelligence.bib}
+
+\title{Artificial Non-Intelligence}
+\author{Jaggi the nerdy fuzzball}
+\date{2025-06-19}
+
+% Document
+\begin{document}
+\maketitle
+\ifhtml
+\begin{center}
+  \vspace{2em}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+    }
+    \href{../../index.html}{Blog Index} &
+    \href{../pdf/artificial-non-inteligence/artificial-non-intelligence.pdf}{PDF
+    Version} &
+    \href{../../about.html}{About} \\
+    ~&~&~\\
+  \end{tabular}
+\end{center}
+\fi
+\begin{flushright}
+  \textit
+  {Once men turned their thinking over to machines in the hope that this would
+    set them free.\\
+  But that only permitted other men with machines to enslave them.}\par
+  Frank Herbert, Dune, 1965\par
+\end{flushright}
+\section*{Disclaimer}\label{sec:disclaimer}
+
+This post is \textbf{clearly biased}, I'm aware of it and to some
+extent it is the point.
+From experience, the best way to learn something on the internets is to throw
+some things out there and wait for someone to contradict you.\par
+Here I write this with all the ``discussions'' I had with so-called
+``vibe coders'' and other ``LLM aficionados'', I'm still waiting to
+ear an argument that actually hold water to justify using LLMs knowing all the
+potential downsides I will spend a  great deal of time detailing in the
+following post.
+
+\section{Security issue}
+This is a test \cite{spracklen2025}
+\section{Impact on cognitive behavior}
+\subsection{Impact on critical thinking}
+\subsection{Impact on dev performances}
+\section{Environmental concerns}
+\section{Societal and ethics problems}
+
+\printbibliography
+
+\end{document}

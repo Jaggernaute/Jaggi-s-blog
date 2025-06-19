@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
+import time
 
 SRC_DIR = Path("src")
 OUT_DIR = Path("output")
@@ -64,6 +65,46 @@ def compile_posts_with_pdflatex():
                 ],
                 check=True
             )
+            for fname in os.listdir(str(tex_path.parent)):
+                if fname.endswith('.bib'):
+                    print("[.bib] file found at" + tex_path.stem + "/" + fname)
+                    time.sleep(2)
+                    subprocess.run(
+                        [
+                            "cp",
+                            str(POSTS_SRC_DIR.absolute() / tex_path.stem / fname),
+                            str(SRC_DIR.absolute().parent / fname)
+                        ],
+                        check=True
+                    )
+                    print("[.bib] copied to " + str(SRC_DIR.absolute().parent / fname))
+                    subprocess.run(
+                        [
+                            "biber",
+                            str(SRC_DIR.absolute().parent / tex_path.stem)
+                        ],
+                        check=True
+                    )
+                    subprocess.run(
+                        [
+                            "pdflatex",
+                            "-interaction=nonstopmode",
+                            "-output-directory", str(output_subdir),
+                            str(tex_path)
+                        ],
+                        check=True
+                    )
+                    subprocess.run(
+                        [
+                            "pdflatex",
+                            "-interaction=nonstopmode",
+                            "-output-directory", str(output_subdir),
+                            str(tex_path)
+                        ],
+                        check=True
+                    )
+                    break
+
 
 def main():
     # Clean output directory
@@ -76,7 +117,7 @@ def main():
     compile_posts_with_pdflatex()
 
     # Optional cleanup
-    subprocess.run(["./clean.sh"])
+    #subprocess.run(["./clean.sh"])
 
 if __name__ == "__main__":
     main()
