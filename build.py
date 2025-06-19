@@ -68,7 +68,6 @@ def compile_posts_with_pdflatex():
             for fname in os.listdir(str(tex_path.parent)):
                 if fname.endswith('.bib'):
                     print("[.bib] file found at" + tex_path.stem + "/" + fname)
-                    time.sleep(2)
                     subprocess.run(
                         [
                             "cp",
@@ -117,7 +116,7 @@ def main():
     compile_posts_with_pdflatex()
 
     # Optional cleanup
-    #subprocess.run(["./clean.sh"])
+    subprocess.run(["./clean.sh"])
 
 if __name__ == "__main__":
     main()
