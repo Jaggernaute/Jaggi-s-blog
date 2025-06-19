@@ -47,6 +47,46 @@ def compile_with_make4ht():
             ],
             check=True
         )
+        for fname in os.listdir(str(tex_path.parent)):
+            if fname.endswith('.bib'):
+                print("[.bib] file found at" + tex_path.stem + "/" + fname)
+                subprocess.run(
+                    [
+                        "cp",
+                        str(POSTS_SRC_DIR.absolute() / tex_path.stem / fname),
+                        str(SRC_DIR.absolute().parent / fname)
+                    ],
+                    check=True
+                )
+                print("[.bib] copied to " + str(SRC_DIR.absolute().parent / fname))
+                subprocess.run(
+                    [
+                        "biber",
+                        str(SRC_DIR.absolute().parent / tex_path.stem)
+                    ],
+                    check=True
+                )
+                subprocess.run(
+                    [
+                        "make4ht",
+                        "-u",
+                        "-c", "config.cfg",
+                        "-d", str(output_subdir),
+                        str(tex_path)
+                    ],
+                    check=True
+                )
+                subprocess.run(
+                    [
+                        "make4ht",
+                        "-u",
+                        "-c", "config.cfg",
+                        "-d", str(output_subdir),
+                        str(tex_path)
+                    ],
+                    check=True
+                )
+                break
 
 def compile_posts_with_pdflatex():
     for tex_path in POSTS_SRC_DIR.rglob("*.tex"):
