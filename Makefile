@@ -7,7 +7,7 @@ outputs :=
 
 define each-file-cmd
     tex-fmt $(strip $2)
-	make4ht -u -c config.cfg -d $(strip $1) $(strip $2)
+	make4ht -u -c config.cfg -d $(strip $1) $(strip $2) "fn-in"
 	pdflatex -interaction=nonstopmode -output-directory $(strip $1) $(strip $2)
 endef
 
@@ -51,7 +51,7 @@ output: $(outputs)
 	@ find output -type f -name "*.ok" -delete
 	@ $(foreach f, $(SRC_TEX:src/%=output/%),\
         $(RM) $(subst .tex,,$f).$(subst $(SPACE),, \
-            {aux,bcf,log,out,run.xml} \
+            {aux,bcf,out,run.xml,toc} \
         ) ;)
 	@ $(foreach f, $(SRC_TEX),\
         $(RM) $(subst .tex,,$(notdir $f)).$(subst $(SPACE),, \

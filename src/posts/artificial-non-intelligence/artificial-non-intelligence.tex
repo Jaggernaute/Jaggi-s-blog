@@ -7,9 +7,10 @@
 % Packages
 \usepackage{array}
 
+\usepackage[export]{adjustbox}
 \usepackage[
   backend=biber,
-  style=reading
+  %style=reading
 ]{biblatex}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -66,19 +67,14 @@
 \section*{Disclaimer}\label{sec:disclaimer}
 
 This post is \textbf{clearly biased}, I'm aware of it and to some
-extent it is the point.
-From experience, the best way to learn something on the internets is to throw
-some things out there and wait for someone to contradict you.\par
+extent it is the point.\par
 Here I write this with all the ``discussions'' I had with so-called
-``vibe coders'' and other ``LLM aficionados'', I'm still waiting to
-ear an argument that actually hold water to justify using LLMs knowing all the
-potential downsides I will spend a  great deal of time detailing in the
-following post.
+``vibe coders'' and other ``LLM aficionados''.
 
 \tableofcontents
 
 \newpage
-\begin{abstract}
+\begin{abstract}\label{abstract}
   The rise of Generative AI (GenAI) is unavoidable in today's world,
   you obviously know someone (friend, colleague, family member) that
   uses it or might be a GenAI user yourself.
@@ -89,14 +85,35 @@ following post.
   stealing, mind-altering, propaganda machines at worst.
   SO brace yourself dear reader ... it is going to be quite a ride !
 \end{abstract}
-\section{Security issue}
-This is a test\footcite{haoping2025}
-\section{Impact on cognitive behavior}
-\subsection{Impact on critical thinking}
-\subsection{Impact on dev performances}
-\section{Environmental concerns}
-\section{Societal and ethics problems}
 
+\section{Introduction}\label{sec:intro}
+GenAI has invaded our lives in lots of
+ways, how we work, play, and learn.\par
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{>{\centering\arraybackslash}p{0.35\textwidth}>{\raggedright\arraybackslash}m{0.65\textwidth}}
+    \ifdefined\HCode
+    \raisebox{-0.5\totalheight}{\includegraphics[height=15em,keepaspectratio]{src/assets/jaggi_teach.png}}
+    \else
+    \raisebox{-0.5\totalheight}{\includegraphics[height=9em,keepaspectratio]{src/assets/jaggi_teach_full.png}}
+    \fi
+    &
+    \noindent
+    \textbf{GenAI} is defined as \emph{``end user tool [...] whose
+      technical implementation includes a generative model based on deep
+    learning'' }\cite{Abbas2024-do}
+  \end{tabular}
+\end{table}
+\section{Impact on cognitive behavior}\label{sec:cognitive}
+\subsection{Impact on critical thinking}\label{sec:critical}
+\section{Impact on specific fields}\label{sec:specific}
+\subsection{Development performances}\label{subsec:developement}
+\subsection{Academic implications}\label{subsec:academic}
+\subsection{Security issues}\label{subnsec:security}
+\section{Environmental concerns}\label{sec:environement}
+\section{Societal and ethics problems}\label{sec:social}
+
+\newpage
 \ifdefined\HCode
 \else
 \addcontentsline{toc}{section}{References}
