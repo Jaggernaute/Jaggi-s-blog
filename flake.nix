@@ -28,12 +28,14 @@
           name = "document";
           src = ./.;
 
-          buildInputs = [ pkgs.gnumake latex-packages pkgs.which ];
+          buildInputs = with pkgs; [
+            gnumake latex-packages which tex-fmt
+          ];
 
           installPhase = ''
             runHook preInstall
 
-            cp B4-backinline.pdf $out
+            cp -r output $out
 
             runHook postInstall
           '';
