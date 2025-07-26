@@ -56,8 +56,9 @@ output: $(outputs)
 	@ $(foreach f, $(SRC_TEX),\
         $(RM) $(subst .tex,,$(notdir $f)).$(subst $(SPACE),, \
             {tex,4{ct,tc},aux,b{bl,bc,cf,ib,lg},css,dvi,html,\
-                idv,lg,log,run.xml,xml,tmp,xref} \
+                idv,lg,log,run.xml,xml,tmp,xref,png,svg} \
         ) ;)
+	@ $(RM) -f *.png *.svg
 
 fclean:
 	@ $(RM) -r output
