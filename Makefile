@@ -1,69 +1,33 @@
-all: re
+PDF_TARGETS += index.pdf
+PDF_TARGETS += posts/article-template.pdf
+PDF_TARGETS += posts/artificial-non-intelligence/artificial-non-intelligence.pdf
+PDF_TARGETS += posts/electronics/electronics.pdf
+HT_TARGETS = $(addsuffix .html,$(basename $(PDF_TARGETS)))
+SRC_DIR = src
+DEPS_DIR = .deps
+OUTPUT_DIR = output
+BUILD_DIR = .aux
+LATEXMK = latexmk -recorder -use-make -deps -norc -auxdir=$(BUILD_DIR) \
+      -e 'warn qq(In Makefile, turn off custom dependencies\n);' \
+      -e '@cus_dep_list = ();' \
+      -e 'show_cus_dep();'
+MAKE4HT = make4ht -u -c config.cfg -B $(BUILD_DIR)
 
-%.bbl: %.bib
-	biber $(subst bbl,,$@)
+all : pdf html
 
-outputs :=
+pdf : $(addprefix $(OUTPUT_DIR)/,$(PDF_TARGETS))
 
-define each-file-cmd
-    tex-fmt $(strip $2)
-	make4ht -u -c config.cfg -d $(strip $1) $(strip $2) "fn-in"
-	pdflatex -interaction=nonstopmode -output-directory $(strip $1) $(strip $2)
-endef
+html : $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS))
 
-define mk-bib-deriv
+.PHONY : all pdf html
 
-$(subst .bib,.bbl,$(notdir $(strip $1))): $(notdir $(strip $1)) $(strip $2)
-	biber $(subst .bib,,$(notdir $(strip $1)))
-
-$(notdir $(strip $1)): $(strip $1)
-	cp $$< $$@
-
-endef
-
-define plop
-
-.PHONY: $(strip $1)
-$(strip $1): $(strip $2)
-	@ mkdir -p $$@
-	$(call each-file-cmd, $(strip $1), $(strip $2))
-
-$(foreach b, $(strip $3), $(call mk-bib-deriv, $b, $(strip $1)))
-
-$(strip $1).ok: $(strip $1) $(subst .bib,.bbl,$(notdir $(strip $3)))
-ifneq ($(strip $3),)
-	$(call each-file-cmd, $(strip $1), $(strip $2))
-	$(call each-file-cmd, $(strip $1), $(strip $2))
-endif
-	touch $$@
-
-outputs += $(strip $1).ok
-
-endef
-
-SPACE != echo -n " "
-SRC_TEX != find src -type f -name "*.tex"
-
-$(foreach f, $(SRC_TEX), $(eval $(call plop, \
-    $(subst src, output, $(dir $f)), $f, $(wildcard $(dir $f)*.bib))) )
-
-output: $(outputs)
-	@ find output -type f -name "*.ok" -delete
-	@ $(foreach f, $(SRC_TEX:src/%=output/%),\
-        $(RM) $(subst .tex,,$f).$(subst $(SPACE),, \
-            {aux,bcf,out,run.xml,toc} \
-        ) ;)
-	@ $(foreach f, $(SRC_TEX),\
-        $(RM) $(subst .tex,,$(notdir $f)).$(subst $(SPACE),, \
-            {tex,4{ct,tc},aux,b{bl,bc,cf,ib,lg},css,dvi,html,\
-                idv,lg,log,run.xml,xml,tmp,xref,png,svg} \
-        ) ;)
-	@ $(RM) -f *.png *.svg
-
-fclean:
-	@ $(RM) -r output
-
-.NOTPARALLEL: re
-re: fclean output
-
-.PHONY: all clean fclean re
+$(foreach file,$(PDF_TARGETS),$(eval -include $(DEPS_DIR)/$(OUTPUT_DIR)/$(file)P))
+$(DEPS_DIR) $(OUTPUT_DIR) :
+	mkdir $@
+$(OUTPUT_DIR)/%.pdf : $(SRC_DIR)/%.tex
+	if [ ! -e $(DEPS_DIR) ]; then mkdir $(DEPS_DIR); fi
+	$(LATEXMK) -pdf -dvi- -ps- -deps-out=$(DEPS_DIR)/$@P -outdir=$(dir $@) $<
+$(OUTPUT_DIR)/%.html : $(SRC_DIR)/%.tex $(OUTPUT_DIR)/%.pdf config.cfg
+	$(MAKE4HT) -d $(dir $@) $< "fn-in"
+$(OUTPUT_DIR)/%.pdf : $(SRC_DIR)/%.fig
+	fig2dev -Lpdf $< $@
