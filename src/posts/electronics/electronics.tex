@@ -6,8 +6,8 @@
 
 % Packages
 \usepackage{array}
-
 \usepackage[export]{adjustbox}
+\usepackage{caption}
 \usepackage[
   backend=biber,
   %style=reading
@@ -91,11 +91,42 @@
 
 \section{Introduction} \label{sec:introduction}
 
-
 \section{Fundamental Electrical Principles} \label{sec:fundamentals}
 \subsection{DC Circuit Theory} \label{subsec:dc_circuit_theory}
+DC circuit theory lays the groundwork for all electronics by
+describing how static (time‑invariant) voltages and currents behave
+in closed loops.\par
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}
+    % Signal constant
+    \begin{axis}[
+        width=0.5\textwidth,
+        title=Constant signal,
+        xlabel=Time,
+        ylabel=Amplitude,
+      ]
+      \addplot[red, const plot] coordinates {(0, 1) (5, 1)};
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
 \subsubsection{Voltage, Current, and Resistance}
+
 \subsubsection{Ohm's Law and Power}
+text\par
+\begin{figure}[!h]
+  \centering
+  \ifdefined\HCode
+  \includegraphics[height=45em,keepaspectratio]
+  {src/assets/electricity_pony.png}
+  \else
+  \includegraphics[height=0.7\textwidth,keepaspectratio]
+  {src/assets/electricity_pony.png}
+  \fi
+  \caption{Electrical resistance explained with ponies.\\
+  \textbf{Source:}\href{https://derpibooru.org/images/2461820?q=electrical+resistance}{derpibooru.org}}
+\end{figure}
 \subsection{Basic Components} \label{subsec:basic_components}
 \subsubsection{Resistors}
 \subsubsection{Capacitors}
