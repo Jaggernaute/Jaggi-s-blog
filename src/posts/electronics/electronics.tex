@@ -23,6 +23,11 @@
 \usepackage{lmodern}
 \usepackage{wasysym}
 \usepackage{pgfplots}
+\usepackage{svg}
+\usepackage[off]{svg-extract}
+\svgsetup{clean=true}
+%\pdfsuppresswarningpagegroup=1
+\usepackage{siunitx}
 \usepackage{tikz}
 \usepackage{tkz-euclide}
 \usepackage[european,straightvoltages]{circuitikz}
@@ -55,9 +60,9 @@
     }
     \href{../../index.html}{Blog Index} &
     \href{electronics.pdf}{PDF
-    Version} &
-    \href{../../about.html}{About} \\
-    ~&~&~\\
+    Version}                            &
+    \href{../../about.html}{About}              \\
+    ~                                   & ~ & ~ \\
   \end{tabular}
 \end{center}
 \fi
@@ -89,29 +94,117 @@
   of it's content.
 \end{abstract}
 
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{
+      >{\centering\arraybackslash}p{0.35\textwidth}
+      >{\raggedright\arraybackslash}m{0.65\textwidth}
+    }
+    \ifdefined\HCode
+    \raisebox{-0.5\totalheight}{
+      \includegraphics[height=15em,keepaspectratio]
+      {src/assets/jaggi_teach.png}
+    }
+    \else
+    \raisebox{-0.5\totalheight}{
+      \includegraphics[height=9em,keepaspectratio]
+      {src/assets/jaggi_teach_full.png}
+    }
+    \fi
+    &
+    \noindent
+    Ohm my gosh—I’m just amping up your learning, one electron at a time!
+  \end{tabular}
+\end{table}
+
 \section{Introduction} \label{sec:introduction}
 
 \section{Fundamental Electrical Principles} \label{sec:fundamentals}
 \subsection{DC Circuit Theory} \label{subsec:dc_circuit_theory}
 DC circuit theory lays the groundwork for all electronics by
 describing how static (time‑invariant) voltages and currents behave
-in closed loops.\par
+in closed loops.\\
+
 \begin{figure}[!h]
   \centering
-  \begin{tikzpicture}
-    % Signal constant
-    \begin{axis}[
-        width=0.5\textwidth,
-        title=Constant signal,
-        xlabel=Time,
-        ylabel=Amplitude,
-      ]
-      \addplot[red, const plot] coordinates {(0, 1) (5, 1)};
-    \end{axis}
+  \ifdefined\HCode
+  \includegraphics[height=25em,width=42em]
+  {src/assets/current-flow-dark.png}
+  \else
+  \includegraphics[width=0.5\textwidth,keepaspectratio]
+  {src/assets/current-flow-light.png}
+  \fi
+  \caption{The conventional current flow, from \(+\) to --}
+\end{figure}
+
+\subsubsection{The units handled}
+
+Before diving into circuits and components, it is important to define
+the \textit{fundamental units} that form the language of electronics.
+At the root is \textbf{electric charge}, the basic quantity underlying
+all electrical interactions. From charge arises \textbf{electric
+current}, the flow of charges through a conductor, and \textbf{voltage},
+the potential difference that drives this flow. Materials oppose the
+motion of charges through their \textbf{resistance}, while the concepts
+of \textbf{energy} and \textbf{power} allow us to describe how circuits
+store and deliver useful work. Together, these units establish the
+framework through which we measure and analyze electrical phenomena.\par
+\vspace{\baselineskip}
+\textbf{\underline{Electric charge :}}\par
+\noindent
+Electric charge is a fundamental property of matter, it enables
+interactions via electromagnetic fields. It is quantified in \textbf{coulombs
+(\unit{\coulomb})}. There are two kinds of electric charge, labelled as
+positive and negative. Like charges repel, whereas opposite charges
+attract. In ordinary matter, the total of positive and negative
+charges is balanced, a condition known as electrical neutrality.
+Electrons (--) and protons (\(+\)) serve as the principal carriers of
+electric charge.
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[scale=0.75]
+    \fill[red] (0,0) circle (0.2);
+    \draw[ultra thick] (0,0) circle (1);
+    \draw[ultra thick] (0,0) circle (1.5);
+    \draw[ultra thick] (0,0) circle (2);
+    \foreach \theta in {30, 150, 270}
+    \draw[fill=blue] (\theta:1) circle (0.1);
+
+    \foreach \theta in {45, 225}
+    \draw[fill=blue] (\theta:1.5) circle (0.1);
+
+    \foreach \theta in {90, 270}
+    \draw[fill=blue] (\theta:2) circle (0.1);
+    \node[below=1em] at (0, -2) {Modèle de Bohr d'un atome};
   \end{tikzpicture}
 \end{figure}
 
-\subsubsection{Voltage, Current, and Resistance}
+In industrial and engineering contexts, the ampere‑hour (Ah)—and its
+submultiples—is commonly used in lieu of the coulomb, particularly
+when indicating the capacity of a battery, in which case:
+\[
+  1~\unit{\ampere\hour} = 3\,600~\unit{\coulomb}.
+\]
+This unit makes it straightforward to estimate how long a battery can
+sustain a given current; for instance, a 30\unit{\ampere\hour} battery
+delivering 1\unit{\ampere}
+would theoretically last 30\unit{\hour} (or 15\unit{\hour} at
+2\unit{\ampere}), and so
+on.
+
+\textbf{Key properties of electric charge (Coulomb’s law):}
+\begin{enumerate}
+  \item There are two types of charge: positive and negative.
+  \item Charges of the same type repel one another.
+  \item Charges of opposite types attract one another.
+\end{enumerate}
+
+An electric current is the collective motion of charged
+carriers—typically electrons—through a conductive medium, driven by
+the electromagnetic force. It is expressed in amperes (\unit{\ampere}),
+which corresponds to the passage of one coulomb of charge per
+second.
 
 \subsubsection{Ohm's Law and Power}
 text\par
@@ -125,7 +218,12 @@ text\par
   {src/assets/electricity_pony.png}
   \fi
   \caption{Electrical resistance explained with ponies.\\
-  \textbf{Source:}\href{https://derpibooru.org/images/2461820?q=electrical+resistance}{derpibooru.org}}
+    \textbf{Source:}\href{
+      https://derpibooru.org/images/2461820?q=electrical+resistance
+    }{
+      derpibooru.org
+    }
+  }
 \end{figure}
 \subsection{Basic Components} \label{subsec:basic_components}
 \subsubsection{Resistors}

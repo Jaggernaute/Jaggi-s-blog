@@ -2,3 +2,6 @@ output/
 .direnv/
 .aux/
 .thing
+.zed/
+.vscode/
+.ropeproject/

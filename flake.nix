@@ -13,6 +13,7 @@
         tex-fmt
         gnumake
         sioyek
+        inkscape
       ];
     in
     {
