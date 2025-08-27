@@ -1,0 +1,126 @@
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{array}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage[
+  backend=biber,
+  %style=reading
+]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{wasysym}
+\usepackage{pgfplots}
+\usepackage{svg}
+\usepackage[off]{svg-extract}
+\svgsetup{clean=true}
+%\pdfsuppresswarningpagegroup=1
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+
+% Define a flag depending on compiler
+\newif\ifhtml
+\ifdefined\HCode
+\htmltrue  % We're using make4ht/tex4ht
+\else
+\htmlfalse % We're using pdflatex or other
+\fi
+
+\addbibresource{electronics.bib}
+
+\title{Learning C}
+\author{Jaggi the nerdy fuzzball}
+\date{\today}
+
+% Document
+\begin{document}
+\maketitle
+\ifhtml
+\begin{center}
+  \vspace{2em}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+      >{\raggedright\arraybackslash}p{0.3\linewidth}
+    }
+    \href{../../index.html}{Blog Index} &
+    \href{learning-c.pdf}{PDF
+    Version}                            &
+    \href{../../about.html}{About}              \\
+    ~                                   & ~ & ~ \\
+  \end{tabular}
+\end{center}
+\fi
+\begin{flushright}
+  \textit
+  {Nevertheless, C retains the basic\\ philosophy that programmers know\\
+    what they are doing; it only requires that\\ they state their
+  intentions explicitly.}\par
+  Brian W. Kernighan --- The C Programming Language --- 1978
+\end{flushright}
+
+\tableofcontents
+
+\newpage
+\begin{abstract}
+  My notes about studying \textbf{C}, this will be full of \textbf{Not Safe
+  For Memory} things (\textit{NSFM} stuff you don't wanna show your
+  mom), fans of the almighty \textit{Krabby Patty} might want to stay
+  away from this one.\\
+  The whole purpose is to show what I learned, in which order, and
+  where I have messed up. Maybe some low level guru (not in a
+  pejorative way) might have some stuff to add on this, and
+  \textbf{PLEASE} do so !
+\end{abstract}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{
+      >{\centering\arraybackslash}p{0.35\textwidth}
+      >{\raggedright\arraybackslash}m{0.65\textwidth}
+    }
+    \ifdefined\HCode
+    \raisebox{-0.5\totalheight}{
+      \includegraphics[height=15em,keepaspectratio]
+      {src/assets/jaggi_teach.png}
+    }
+    \else
+    \raisebox{-0.5\totalheight}{
+      \includegraphics[height=9em,keepaspectratio]
+      {src/assets/jaggi_teach_full.png}
+    }
+    \fi
+    &
+    \noindent
+    If it hasn't segfaulted, yet you just need to run \textbf{ASan} a
+    bit longer ...
+  \end{tabular}
+\end{table}
+
+\section{Introduction} \label{sec:introduction}
+
+\section{Setting up} \label{sec:setting}
+First off, we need some packages, nothing colossal (we ain't doing no
+Unreal \textbf{C++} stuff) and most of them might already be installed on your
+distro --- Windows users might either want to struggle the \textbf{WSL}
+way or sod off and go watch a \textbf{C\#} tutorial or something ---.\\
+I'll use :
+\begin{itemize}
+  \item criterion
+  \item gcc
+  \item gcovr
+  \item gnumake
+  \item valgrind
+\end{itemize}
+This is a \textbf{Test}
+\end{document}
