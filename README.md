@@ -2,19 +2,6 @@
 
 A static blog project written in LaTeX, built using Make and Nix.
 
----
-
-## Table of Contents
-
-* [Overview](#overview)
-* [Structure](#structure)
-* [Prerequisites](#prerequisites)
-* [Installation & Setup](#installation--setup)
-* [Building the Blog](#building-the-blog)
-* [Cleaning](#cleaning)
-
----
-
 ## Overview
 
 This blog uses the LaTeX typeseting language to generate the content, Nix for the
