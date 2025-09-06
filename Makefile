@@ -1,8 +1,9 @@
-PDF_TARGETS += index.pdf
-PDF_TARGETS += posts/article-template.pdf
-PDF_TARGETS += posts/artificial-non-intelligence/artificial-non-intelligence.pdf
+#PDF_TARGETS += index.pdf
+#PDF_TARGETS += posts/article-template.pdf
+#PDF_TARGETS += posts/artificial-non-intelligence/artificial-non-intelligence.pdf
 PDF_TARGETS += posts/electronics/electronics.pdf
-PDF_TARGETS += posts/learning-c/learning-c.pdf
+#PDF_TARGETS += posts/learning-c/learning-c.pdf
+#PDF_TARGETS += posts/learning-rust/learning-rust.pdf
 HT_TARGETS = $(addsuffix .html,$(basename $(PDF_TARGETS)))
 SRC_DIR = src
 DEPS_DIR = .deps
@@ -14,11 +15,19 @@ LATEXMK = latexmk -shell-escape -recorder -use-make -deps -norc -auxdir=$(BUILD_
       -e 'show_cus_dep();'
 MAKE4HT = make4ht -u -c config.cfg -B $(BUILD_DIR)
 
+IMAGES := $(shell find $(SRC_DIR) -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.pdf' \))
+BB_FILES := $(IMAGES:%=%.bb)
+
+
 all : pdf html
 
-pdf : $(addprefix $(OUTPUT_DIR)/,$(PDF_TARGETS))
+pdf: bb $(addprefix $(OUTPUT_DIR)/,$(PDF_TARGETS))
+html: bb $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS))
 
-html : $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS))
+bb: $(BB_FILES)
+%.bb: %
+	extractbb $<
+
 
 clean:
 	rm -rf $(BUILD_DIR) $(DEPS_DIR)

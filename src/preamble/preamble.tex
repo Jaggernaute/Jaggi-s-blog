@@ -1,0 +1,39 @@
+\usepackage{array}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage[
+  backend=biber,
+  %style=reading
+]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{wasysym}
+\usepackage{pgfplots}
+\usepackage{svg}
+\usepackage[off]{svg-extract}
+\svgsetup{clean=true}
+%\pdfsuppresswarningpagegroup=1
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage[european,straightvoltages]{circuitikz}
+\usepackage{ifthen}
+
+\newcommand{\conditionalincludegraphics}[3]{%
+  \ifdefined\HCode
+    \ifthenelse{\equal{#2}{true}}%
+      {\includegraphics[width=\fpeval{round(100*(#3))}em, keepaspectratio]{#1-dark.png}}%
+      {\includegraphics[width=\fpeval{round(100*(#3)/2)}em]{#1.png}}%
+  \else
+    \ifthenelse{\equal{#2}{true}}%
+      {\includegraphics[width=#3\linewidth,keepaspectratio]{#1-light.png}}%
+      {\includegraphics[width=#3\linewidth,keepaspectratio]{#1.png}}%
+  \fi
+}

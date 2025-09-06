@@ -1,45 +1,6 @@
-%! Author = jaggi
-%! Date = 6/16/25
-
-% Preamble
 \documentclass[11pt]{article}
 
-% Packages
-\usepackage{array}
-\usepackage[export]{adjustbox}
-\usepackage{caption}
-\usepackage[
-  backend=biber,
-  %style=reading
-]{biblatex}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{hyperref}
-\usepackage{graphicx}
-\usepackage{geometry}
-\usepackage{xcolor}
-\usepackage{titlesec}
-\usepackage{enumitem}
-\usepackage{lmodern}
-\usepackage{wasysym}
-\usepackage{pgfplots}
-\usepackage{svg}
-\usepackage[off]{svg-extract}
-\svgsetup{clean=true}
-%\pdfsuppresswarningpagegroup=1
-\usepackage{siunitx}
-\usepackage{tikz}
-\usepackage{tkz-euclide}
-\usepackage[european,straightvoltages]{circuitikz}
-
-% Define a flag depending on compiler
-\newif\ifhtml
-\ifdefined\HCode
-\htmltrue  % We're using make4ht/tex4ht
-\else
-\htmlfalse % We're using pdflatex or other
-\fi
-
+\input{src/preamble/preamble.tex}
 \addbibresource{electronics.bib}
 
 \title{Electronics}
@@ -49,7 +10,7 @@
 % Document
 \begin{document}
 \maketitle
-\ifhtml
+\ifdefined\HCode
 \begin{center}
   \vspace{2em}
   \renewcommand{\arraystretch}{1.5}
@@ -127,13 +88,7 @@ in closed loops.\\
 
 \begin{figure}[!h]
   \centering
-  \ifdefined\HCode
-  \includegraphics[height=25em,width=42em]
-  {src/assets/current-flow-dark.png}
-  \else
-  \includegraphics[width=0.5\textwidth,keepaspectratio]
-  {src/assets/current-flow-light.png}
-  \fi
+  \conditionalincludegraphics{src/assets/current-flow}{true}{0.5}
   \caption{The conventional current flow, from \(+\) to --}
 \end{figure}
 
