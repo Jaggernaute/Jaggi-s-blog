@@ -1,0 +1,255 @@
+/* ---------- font-face placeholders (provide WOFF/WOFF2 files in ./fonts) */
+@font-face {
+  font-family: 'Latin Modern';
+  font-weight: 400;
+  font-style: normal;
+  src: url('./fonts/LM-regular.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Latin Modern';
+  font-weight: 700;
+  font-style: normal;
+  src: url('./fonts/LM-bold.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Libertinus';
+  font-weight: 400;
+  font-style: normal;
+  src: url('./fonts/Libertinus-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ---------- box-sizing reset */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* ---------- theme variables (dark default) */
+:root {
+  --bg: #0f0f12;                 /* page background */
+  --surface: #121217;            /* surface behind cards */
+  --muted-surface: #17171b;      /* panels, blocks */
+  --text: #e8e8eb;               /* primary text */
+  --muted-text: #bdbcc2;         /* secondary text */
+  --accent: #E97676;
+  --accent-2: #53C8F6;
+  --border: rgba(255,255,255,0.06);
+  --code-bg: #0b0b0d;
+  --radius: 8px;
+  --max-width: 120ch;
+  --line-height: 1.66;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+  --serif: 'Latin Modern', Libertinus, Georgia, "Times New Roman", serif;
+}
+
+/* ---------- base layout */
+html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: var(--line-height);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.25rem 1.25rem;
+  -webkit-text-size-adjust: 100%;
+  hyphens: auto;
+}
+
+/* rhythm */
+article > * + * { margin-top: 1.15rem; }
+p { margin-top: 0.85rem; color: var(--muted-text); }
+
+/* headings */
+h1 { font-size: 2.4rem; margin: 0 0 .6rem 0; text-align: center; color: var(--text); }
+h2 {
+  font-size: 1.8rem;
+  margin-top: 1.8rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: .45rem;
+}
+h3 { font-size: 1.25rem; margin-top: 1.3rem; color: var(--text); }
+h4,h5,h6 { color: var(--muted-text); }
+
+/* links */
+a { color: var(--accent); text-decoration: none; transition: color .15s ease, transform .08s ease; }
+a:hover, a:focus { color: var(--accent-2); text-decoration: underline; transform: translateY(-1px); outline: none; }
+a.post-link { color: var(--accent); font-weight: 600; }
+
+/* small */
+small, .small { font-size: .92rem; color: var(--muted-text); }
+
+/* blockquote */
+blockquote {
+  margin: 1rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--muted-surface);
+  border-left: 3px solid rgba(255,255,255,0.04);
+  color: var(--muted-text);
+  border-radius: 8px;
+}
+
+/* ---------- FIGURES & IMAGES
+   IMPORTANT: do NOT force centering/positioning here. Let LaTeX floats and \centering
+   control placement. Only remove CSS-inserted backgrounds/borders/shadows.
+*/
+figure {
+  /* keep minimal wrapper only: don't override float behaviour or alignment */
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: inherit;   /* do not force center */
+}
+
+/* images follow document flow; don't force centering or margins */
+figure > img,
+figure > svg,
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;   /* allow LaTeX centering from source to work */
+  margin: 0;               /* do not force center via magic margins */
+  padding: 0;
+  vertical-align: middle;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important; /* remove CSS background */
+}
+
+/* For img elements pointing to SVG files ensure transparency */
+img[src$=".svg"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Some converters add a white <rect> as first child in SVG — hide it */
+svg > rect:first-child {
+  fill: none !important;
+  stroke: none !important;
+}
+
+/* If the SVG includes a white background rect with id/class, try to remove visually */
+svg [id*="background"], svg [class*="background"] {
+  fill: none !important;
+  stroke: none !important;
+  display: none !important;
+}
+
+/* ---------- cards (solid fills, no gradients) */
+.card {
+  background: var(--muted-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+/* code & pre (solid bg) */
+code, kbd, pre { font-family: var(--mono); font-size: .94rem; color: var(--text); }
+pre {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,0.03);
+  margin: 0.9rem 0;
+}
+code { background: rgba(255,255,255,0.02); padding: .12rem .28rem; border-radius: 4px; }
+
+/* kbd */
+kbd { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.04); padding: .12rem .35rem; border-radius: 6px; font-size: .85rem; }
+
+/* tables (solid styling) */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+th, td { padding: .7rem .9rem; border-bottom: 1px solid rgba(255,255,255,0.04); text-align: left; }
+th { color: var(--muted-text); font-weight: 600; background: var(--muted-surface); }
+tbody tr:hover td { background: rgba(255,255,255,0.01); }
+
+/* captions */
+caption, figcaption { color: var(--muted-text); font-size: .94rem; }
+
+/* lists */
+ul, ol { margin: .5rem 0 .5rem 1.25rem; color: var(--muted-text); }
+li { padding: 6px 0; }
+
+/* footnotes / sidenotes */
+.footnotes { margin-top: 1.25rem; border-top: 1px dashed rgba(255,255,255,0.04); padding-top: .8rem; color: var(--muted-text); font-size: .93rem; }
+.sidenote { font-size: .87rem; color: var(--muted-text); }
+
+/* theorem/proof/definition (solid card look) */
+.theorem, .lemma, .definition {
+  display: block;
+  margin: .75rem 0;
+  padding: .65rem .9rem;
+  border-radius: 8px;
+  background: var(--muted-surface);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.theorem::before { content: 'Theorem. '; font-weight: 700; color: var(--accent); }
+.proof::after { content: '◾'; color: var(--accent); margin-left: .45rem; }
+
+/* nav / toc */
+nav { margin: 1rem 0; padding: .75rem; border-radius: 8px; background: var(--muted-surface); border: 1px solid rgba(255,255,255,0.03); }
+nav a { display: block; padding: .25rem 0; color: var(--muted-text); }
+nav a:hover { color: var(--accent); }
+
+/* section title accent (solid bar) */
+.section-title { display: inline-block; position: relative; padding-bottom: .35rem; }
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 4px;
+  width: 52%;
+  border-radius: 4px;
+  background: var(--accent);
+  opacity: 0.95;
+}
+
+/* callout */
+.callout {
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  background: var(--muted-surface);
+  color: var(--muted-text);
+}
+
+/* responsive tweaks */
+@media (max-width: 700px) {
+  body { padding: 1.1rem; }
+  .section-title::after { width: 36%; }
+  nav { padding: .5rem; }
+  h1 { font-size: 1.9rem; }
+}
+
+/* accessibility focus */
+:focus { outline: 3px solid rgba(255,102,182,0.18); outline-offset: 3px; }
+
+/* utility helpers */
+.center { text-align: center; } /* allowed but won't be forced by our CSS */
+.muted { color: var(--muted-text); }
+.accent { color: var(--accent); }
+
+/* small final touches */
+hr { border: none; height: 1px; background: rgba(255,255,255,0.02); margin: 1.25rem 0; }
+
+/* allow explicit override to light theme */
+.theme-light {
+  --bg: #fbfbfb;
+  --surface: #fff;
+  --muted-surface: #fafafa;
+  --text: #111;
+  --muted-text: #555;
+  --accent: #e75080;
+  --code-bg: #f6f7f9;
+  --border: rgba(0,0,0,0.06);
+}

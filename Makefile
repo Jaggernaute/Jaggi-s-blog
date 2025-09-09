@@ -9,10 +9,12 @@ SRC_DIR = src
 DEPS_DIR = .deps
 OUTPUT_DIR = output
 BUILD_DIR = .aux
+CSS_FILE =  src/preamble/style.css
 LATEXMK = latexmk -shell-escape -recorder -use-make -deps -norc -auxdir=$(BUILD_DIR) \
       -e 'warn qq(In Makefile, turn off custom dependencies\n);' \
       -e '@cus_dep_list = ();' \
       -e 'show_cus_dep();'
+
 MAKE4HT = make4ht -u -c config.cfg -B $(BUILD_DIR)
 
 IMAGES := $(shell find $(SRC_DIR) -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.pdf' \))
@@ -22,12 +24,27 @@ BB_FILES := $(IMAGES:%=%.bb)
 all : pdf html
 
 pdf: bb $(addprefix $(OUTPUT_DIR)/,$(PDF_TARGETS))
-html: bb $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS))
+
+html: $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS)) copy-css validate-html
+
+copy-css:
+	@for f in $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS)); do \
+	  d=$$(dirname $$f); \
+	  mkdir -p "$$d"; \
+	  rsync -a --checksum --info=NAME "$(CSS_FILE)" "$$d/"; \
+	done
+
+
+validate-html:
+	@for file in $(addprefix $(OUTPUT_DIR)/,$(HT_TARGETS)); do \
+		echo "Validating $$file..."; \
+		tidy -q -e $$file || true; \
+		xmllint --noout --html $$file || true; \
+	done
 
 bb: $(BB_FILES)
 %.bb: %
 	extractbb $<
-
 
 clean:
 	rm -rf $(BUILD_DIR) $(DEPS_DIR)
@@ -36,7 +53,6 @@ fclean: clean
 	rm -rf $(OUTPUT_DIR)
 
 re: fclean all
-
 
 .PHONY : all pdf html clean fclean re
 
