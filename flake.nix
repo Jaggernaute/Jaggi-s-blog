@@ -14,6 +14,8 @@
         gnumake
         sioyek
         inkscape
+        libxml2
+        html-tidy
       ];
     in
     {

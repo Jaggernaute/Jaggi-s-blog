@@ -1,3 +1,8 @@
+/*
+A good part of this CSS was ~~stolen~~ borrowed from :
+https://github.com/vincentdoerig/latex-css
+*/
+
 /* ---------- font-face placeholders (provide WOFF/WOFF2 files in ./fonts) */
 @font-face {
   font-family: 'Latin Modern';

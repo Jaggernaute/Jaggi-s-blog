@@ -16,7 +16,11 @@ and latexmk to generate a PDF version of each blog article.
 ## Structure
 **Dev structure :**
 ```text
-├── src/                    # Source files (TeX, Python, content)
+├── src/                    # Source files (TeX, content)
+    ├── posts/ ...          # Posts content (TeX, Bib)
+    └── preamble/           # global config
+│       ├── style.css       # global CSS style
+│       └── preamble.tex    # global LaTeX config
 ├── Makefile                # Build/clean commands wrapper
 ├── config.cfg              # Configuration settings for make4ht
 └──  flake.nix & flake.lock # Nix development environment
@@ -29,6 +33,7 @@ and latexmk to generate a PDF version of each blog article.
     │   └── postX          # example of a post
     │       ├── src/assets # post specific assets
     │       ├── postX.css  # page CSS file
+    │       ├── style.css  # global CSS
     │       ├── postX.html # page HTML layout
     │       └── postX.pdf  # PDF version of the article
     ├── src/assets         # global assets files
