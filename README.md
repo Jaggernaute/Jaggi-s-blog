@@ -52,6 +52,8 @@ If you don't have Nix:
 * [TeX Live](https://www.tug.org/texlive/) (full)
 * [make4ht](https://www.kodymirus.cz/make4ht.html) — may be provided by your TeX Live distribution
 * [Inkscape](https://inkscape.org)
+* [libxml2](https://gitlab.gnome.org/GNOME/libxml2) - optional
+* [html-tidy](https://www.html-tidy.org/) - optional
 
 ---
 
