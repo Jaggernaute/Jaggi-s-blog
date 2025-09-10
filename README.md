@@ -17,8 +17,8 @@ and latexmk to generate a PDF version of each blog article.
 **Dev structure :**
 ```text
 ├── src/                    # Source files (TeX, content)
-    ├── posts/ ...          # Posts content (TeX, Bib)
-    └── preamble/           # global config
+│   ├── posts/ ...          # Posts content (TeX, Bib)
+│   └── preamble/           # global config
 │       ├── style.css       # global CSS style
 │       └── preamble.tex    # global LaTeX config
 ├── Makefile                # Build/clean commands wrapper
